@@ -1,0 +1,58 @@
+* { 
+  color: white;
+}
+
+h1 {
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: .5px;
+  margin-top: 6rem;
+}
+
+.register-section-container {
+  position: relative;
+  background-image: url('https://d0.tubitv.com/web-k8s/dist/img/964df397c603.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 67%;
+  height: 30vh;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.title {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 64px;
+  letter-spacing: .21px;
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: .37px;
+  margin-bottom: 20px;
+}
+
+.graphics {
+  margin-bottom: 8rem;
+}
+
+.register-btn {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: .5px;
+  background-color: white;
+  border: 0;
+  border-radius: 2px;
+  padding: 20px 50px;
+  color: #26262d;
+}
