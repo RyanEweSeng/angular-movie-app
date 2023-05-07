@@ -8,30 +8,86 @@
   <h4>Register via Email</h4>
   <div class="form-container">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <div>
-        <label for="firstname">First Name</label>
-        <input type="text" id="firstname" name="firstname" formControlName="name" required>
-        <div *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
-          <div *ngIf="registerForm.get('name')?.errors?.['required']">Name is required</div>
+      <div *ngIf="currentStep === 0">
+        <div>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" formControlName="email" required>
+          <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+            <div *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</div>
+            <div *ngIf="registerForm.get('email')?.errors?.['email']">Invalid email format</div>
+          </div>
+        </div>
+
+        <div>
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" formControlName="password" required>
+          <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+            <div *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</div>
+            <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least {{ MIN_LENGTH }} characters</div>
+          </div>
+        </div>
+
+        <div>
+          <button
+            type="button"
+            (click)="nextRegisterStep()"
+            [disabled]="!(registerForm.controls['email'].valid && registerForm.controls['password'].valid)"
+          >
+            Next
+          </button>
         </div>
       </div>
-      <div>
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" formControlName="email" required>
-        <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
-          <div *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</div>
-          <div *ngIf="registerForm.get('email')?.errors?.['email']">Invalid email format</div>
+
+      <div *ngIf="currentStep === 1">
+        <div>
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" formControlName="username" required>
+          <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
+            <div *ngIf="registerForm.get('username')?.errors?.['required']">Username is required</div>
+          </div>
+        </div>
+
+        <div>
+          <label for="apiKey">TMDB API Key</label>
+          <input type="text" id="apiKey" name="apiKey" formControlName="apiKey" required>
+          <div *ngIf="registerForm.get('apiKey')?.invalid && registerForm.get('apiKey')?.touched">
+            <div *ngIf="registerForm.get('apiKey')?.errors?.['required']">API key is required</div>
+          </div>
+        </div>
+
+        <div>
+          <button type="button" (click)="prevRegisterStep()">Back</button>
+          <button
+            type="button"
+            (click)="nextRegisterStep()"
+            [disabled]="!(registerForm.controls['username'].valid && registerForm.controls['apiKey'].valid)"
+          >
+            Next
+          </button>
         </div>
       </div>
-      <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" formControlName="password" required>
-        <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-          <div *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</div>
-          <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least {{ MIN_LENGTH }} characters</div>
+
+      <div *ngIf="currentStep === 2">
+        <div>
+          <h4>Select a plan</h4>
+          <div class="radio-container">
+            <label>
+              <input type="radio" formControlName="planType" name="planType" value="Free"> Free
+            </label>
+            <label>
+              <input type="radio" formControlName="planType" name="planType" value="Standard"> Standard
+            </label>
+            <label>
+              <input type="radio" formControlName="planType" name="planType" value="Premium"> Premium
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <button type="button" (click)="prevRegisterStep()">Back</button>
+          <button type="submit" [disabled]="!registerForm.valid">Sign Up</button>
         </div>
       </div>
-      <button type="submit" [disabled]="!registerForm.valid">Next</button>
     </form>
   </div>
 </div>

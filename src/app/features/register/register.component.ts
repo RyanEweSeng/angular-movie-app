@@ -8,18 +8,27 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
-  MIN_LENGTH: number;
+  currentStep: number = 0;
+  MIN_LENGTH: number = 8;
 
-  constructor(private formBuilder: FormBuilder) {
-    this.MIN_LENGTH = 8;
-  }
+  constructor(private formBuilder: FormBuilder) {  }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(this.MIN_LENGTH)]]
+      password: ['', [Validators.required, Validators.minLength(this.MIN_LENGTH)]],
+      username: ['', Validators.required],
+      apiKey: ['', Validators.required],
+      planType: ['', Validators.required],
     })
+  }
+
+  nextRegisterStep(): void {
+    this.currentStep++;
+  }
+
+  prevRegisterStep(): void {
+    this.currentStep--;
   }
 
   onSubmit(): void {
