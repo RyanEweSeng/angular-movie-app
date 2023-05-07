@@ -7,6 +7,7 @@ import { ShareModule } from './share/share.module';
 import { HomeModule } from './features/home/home.module';
 import { LoginModule } from './features/login/login.module';
 import { RegisterModule } from './features/register/register.module';
+import { BrowseModule } from './features/browse/browse.module';
 
 import { AppComponent } from './app.component';
 
@@ -22,6 +23,7 @@ import { AppComponent } from './app.component';
     HomeModule,
     LoginModule,
     RegisterModule,
+    BrowseModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
