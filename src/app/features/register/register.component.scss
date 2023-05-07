@@ -9,8 +9,12 @@ form {
   align-items: center;
 }
 
-label, input {
-  color: white;
+label {
+  margin: 0.5rem;
+}
+
+input {
+  color: black;
   margin: 0.5rem;
 }
 
@@ -28,6 +32,10 @@ button {
   background-repeat: no-repeat;
   background-position: 67%;
   padding: 8rem 0;
+}
+
+.form-container {
+  color: white;
 }
 
 .btn-container {
