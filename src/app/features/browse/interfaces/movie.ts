@@ -1,9 +1,9 @@
 export interface Movie {
   id: number,
+  poster_path: string,
   title: string,
   overview: string,
-  language: string,
-  releaseDate: string,
-  adult: boolean,
-  rating: number
+  original_language: string,
+  release_date: string,
+  vote_average: number
 }

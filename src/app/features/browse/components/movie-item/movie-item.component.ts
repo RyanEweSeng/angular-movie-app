@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Movie } from '../../interfaces/movie';
 
 @Component({
   selector: 'app-movie-item',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./movie-item.component.scss']
 })
 export class MovieItemComponent {
-
+  @Input() movie!: Movie;
 }
