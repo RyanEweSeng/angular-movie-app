@@ -13,6 +13,7 @@
         <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
           <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</div>
           <div *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email format.</div>
+          <div *ngIf="!loginForm.get('email')?.errors?.['emailExists']">Email does not exist</div>
         </div>
       </div>
       <div>

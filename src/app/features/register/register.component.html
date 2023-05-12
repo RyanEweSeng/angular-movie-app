@@ -15,6 +15,7 @@
           <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
             <div *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</div>
             <div *ngIf="registerForm.get('email')?.errors?.['email']">Invalid email format</div>
+            <div *ngIf="registerForm.get('email')?.errors?.['emailExists']">Account already created with this email</div>
           </div>
         </div>
 
