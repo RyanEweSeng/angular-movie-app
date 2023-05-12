@@ -6,12 +6,16 @@ import { RegisterComponent } from './features/register/register.component';
 import { BrowseComponent } from './features/browse/browse.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  {
+    path: '',
+    loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule)
+  },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   {
     path: 'browse',
-    loadChildren: () => import('./features/browse/browse.module').then(m => m.BrowseModule) },
+    loadChildren: () => import('./features/browse/browse.module').then(m => m.BrowseModule)
+  },
 ];
 
 @NgModule({
