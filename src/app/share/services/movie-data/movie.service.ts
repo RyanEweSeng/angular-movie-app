@@ -18,4 +18,8 @@ export class MovieService {
   getDetails(movieId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/movie/${movieId}?api_key=${this.apiKey}`);
   }
+
+  getOfficialTrailer(movieId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/movie/${movieId}/videos?api_key=${this.apiKey}`);
+  }
 }

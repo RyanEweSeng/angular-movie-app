@@ -23,9 +23,14 @@ export class MovieDetailComponent implements OnInit {
 
   getDetails() {
     this.movieService.getDetails(this.movieId).subscribe(res => {
-      console.log(res);
       this.movieDetails = res;
       this.movieGenres = this.movieDetails.genres.map(genre => genre.name);
+    });
+  }
+
+  showTrailer() {
+    this.movieService.getOfficialTrailer(this.movieId).subscribe(res => {
+      console.log(res);
     });
   }
 
