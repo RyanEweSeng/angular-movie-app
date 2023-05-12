@@ -13,12 +13,15 @@ export class MovieDetailComponent implements OnInit {
   movieId!: number;
   movieDetails!: MovieDetails;
   movieGenres!: Array<Object>;
+  trailerKey!: string;
+  trailerFlag: boolean = false;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private movieService: MovieService) { }
 
   ngOnInit() {
     this.movieId = parseInt(this.activatedRoute.snapshot.paramMap.get('id') || "0", 10);
     this.getDetails();
+    this.getTrailerKey();
   }
 
   getDetails() {
@@ -28,10 +31,19 @@ export class MovieDetailComponent implements OnInit {
     });
   }
 
-  showTrailer() {
+  getTrailerKey() {
     this.movieService.getOfficialTrailer(this.movieId).subscribe(res => {
-      console.log(res);
+      this.trailerKey = res.results.filter((item: { name: string; }) => item.name === "Official Trailer")[0].key;
+      console.log(this.trailerKey);
     });
+  }
+
+  showTrailer() {
+    this.trailerFlag = true;
+  }
+
+  closeTrailer() {
+    this.trailerFlag = false;
   }
 
   goToMovieList() {

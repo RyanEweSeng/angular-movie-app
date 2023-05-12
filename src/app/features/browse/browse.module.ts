@@ -9,6 +9,7 @@ import { BrowseComponent } from './browse.component';
 import { MovieItemComponent } from './components/movie-item/movie-item.component';
 import { MovieDetailComponent } from './components/movie-detail/movie-detail.component';
 import { MovieListComponent } from './components/movie-list/movie-list.component';
+import { TrailerComponent } from './components/trailer/trailer.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { MovieListComponent } from './components/movie-list/movie-list.component
     MovieDetailComponent,
     TruncatePipe,
     MovieListComponent,
+    TrailerComponent,
   ],
   imports: [
     CommonModule,

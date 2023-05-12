@@ -11,4 +11,6 @@
     <button (click)="showTrailer()">Trailer</button>
     <button>Watch Now</button>
   </div>
+
+  <app-trailer [key]="trailerKey" *ngIf="trailerFlag" (closeTrailerEvent)="closeTrailer()"></app-trailer>
 </div>
