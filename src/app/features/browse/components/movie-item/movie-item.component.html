@@ -2,7 +2,7 @@
   <img src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" class="poster">
   <div class="info-container">
     <h1 style="height: 60px">{{ movie.title }}</h1>
-    <h4>{{ movie.release_date.split('-')[0] }} &#8226; {{ movie.original_language.toUpperCase() }} &#8226; {{ movie.vote_average }} &#9733;</h4>
+    <h4>{{ movie.release_date.split('-')[0] }} &#8226; {{ movie.original_language.toUpperCase() }} &#8226; {{ movie.vote_average.toFixed(1) }} &#9733;</h4>
     <h4>{{ movie.overview | truncate: 80 }}</h4>
   </div>
   <button (click)="goToDetails(movie.id)">More Details</button>
