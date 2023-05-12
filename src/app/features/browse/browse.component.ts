@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from './interfaces/movie';
-import { MovieService } from './services/movie.service';
+import { Movie } from 'src/app/core/interfaces/movie';
+import { MovieService } from 'src/app/share/services/movie/movie.service';
 
 @Component({
   selector: 'app-browse',
