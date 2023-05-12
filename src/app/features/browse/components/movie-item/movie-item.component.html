@@ -1,6 +1,9 @@
 <div class="movie-item-container">
   <img src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" class="poster">
-  <h1>{{ movie.title }}</h1>
-  <h4>{{ movie.release_date.split('-')[0] }} {{ movie.original_language }} {{ movie.vote_average }}</h4>
-  <h4>{{ movie.overview }}</h4>
+  <div class="info-container">
+    <h1 style="height: 60px">{{ movie.title }}</h1>
+    <h4>{{ movie.release_date.split('-')[0] }} {{ movie.original_language }} {{ movie.vote_average }}</h4>
+    <h4>{{ movie.overview | truncate: 80 }}</h4>
+  </div>
+  <button>More Details</button>
 </div>
