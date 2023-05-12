@@ -9,7 +9,9 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'browse', component: BrowseComponent },
+  {
+    path: 'browse',
+    loadChildren: () => import('./features/browse/browse.module').then(m => m.BrowseModule) },
 ];
 
 @NgModule({
