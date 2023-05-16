@@ -17,7 +17,6 @@ export class TrailerComponent implements OnInit {
   ngOnInit() {
     const videoUrl = 'https://www.youtube.com/embed/';
     this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(videoUrl + this.key);
-    console.log(this.key);
   }
 
   emitCloseTrailer() {

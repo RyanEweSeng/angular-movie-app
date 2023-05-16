@@ -18,7 +18,6 @@ export class MovieListComponent {
 
   getData(): void {
     this.movieService.getData().subscribe(res => {
-      console.log(res.results);
       this.movieData = res.results.reduce((result: Movie[], curr: Movie) => {
         result.push({
           id: curr.id,

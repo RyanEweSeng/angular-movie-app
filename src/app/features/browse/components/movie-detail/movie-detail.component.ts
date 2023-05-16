@@ -25,17 +25,20 @@ export class MovieDetailComponent implements OnInit {
   }
 
   getDetails() {
-    this.movieService.getDetails(this.movieId).subscribe(res => {
-      this.movieDetails = res;
+    this.activatedRoute.data.subscribe(data => {
+      this.movieDetails = data['movieDetails'];
       this.movieGenres = this.movieDetails.genres.map(genre => genre.name);
     });
   }
 
   getTrailerKey() {
-    this.movieService.getOfficialTrailer(this.movieId).subscribe(res => {
-      this.trailerKey = res.results.filter((item: { name: string; }) => item.name === "Official Trailer")[0].key;
-      console.log(this.trailerKey);
+    this.activatedRoute.data.subscribe(data => {
+      this.trailerKey = data['trailer'].results.filter((item: { name: string }) => item.name === "Official Trailer")[0].key;
     });
+    // this.movieService.getOfficialTrailer(this.movieId).subscribe(res => {
+    //   this.trailerKey = res.results.filter((item: { name: string; }) => item.name === "Official Trailer")[0].key;
+    //   console.log(this.trailerKey);
+    // });
   }
 
   showTrailer() {
