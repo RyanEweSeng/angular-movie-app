@@ -21,8 +21,8 @@ export class RegisterComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(this.MIN_LENGTH)]],
       username: ['', Validators.required],
       role: ['', Validators.required],
-      apiKey: ['', Validators.required],
-      planType: ['', Validators.required],
+      tmdb_key: ['', Validators.required],
+      plan_type: ['', Validators.required],
     })
   }
 

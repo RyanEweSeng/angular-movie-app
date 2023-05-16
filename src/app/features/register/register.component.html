@@ -61,10 +61,10 @@
         </div>
 
         <div>
-          <label for="apiKey">TMDB API Key</label>
-          <input type="text" id="apiKey" name="apiKey" formControlName="apiKey" required>
-          <div *ngIf="registerForm.get('apiKey')?.invalid && registerForm.get('apiKey')?.touched">
-            <div *ngIf="registerForm.get('apiKey')?.errors?.['required']">API key is required</div>
+          <label for="tmdb_key">TMDB API Key</label>
+          <input type="text" id="tmdb_key" name="tmdb_key" formControlName="tmdb_key" required>
+          <div *ngIf="registerForm.get('tmdb_key')?.invalid && registerForm.get('tmdb_key')?.touched">
+            <div *ngIf="registerForm.get('tmdb_key')?.errors?.['required']">API key is required</div>
           </div>
         </div>
 
@@ -73,7 +73,7 @@
           <button
             type="button"
             (click)="nextRegisterStep()"
-            [disabled]="!(registerForm.controls['role'].valid && registerForm.controls['apiKey'].valid)"
+            [disabled]="!(registerForm.controls['role'].valid && registerForm.controls['tmdb_key'].valid)"
           >
             Next
           </button>
@@ -85,13 +85,13 @@
           <h4>Select a plan</h4>
           <div class="radio-container">
             <label>
-              <input type="radio" formControlName="planType" name="planType" value="Free"> Free
+              <input type="radio" formControlName="plan_type" name="plan_type" value="Free"> Free
             </label>
             <label>
-              <input type="radio" formControlName="planType" name="planType" value="Standard"> Standard
+              <input type="radio" formControlName="plan_type" name="plan_type" value="Standard"> Standard
             </label>
             <label>
-              <input type="radio" formControlName="planType" name="planType" value="Premium"> Premium
+              <input type="radio" formControlName="plan_type" name="plan_type" value="Premium"> Premium
             </label>
           </div>
         </div>
