@@ -10,6 +10,14 @@
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div *ngIf="currentStep === 0">
         <div>
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" formControlName="username" required>
+          <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
+            <div *ngIf="registerForm.get('username')?.errors?.['required']">Username is required</div>
+          </div>
+        </div>
+
+        <div>
           <label for="email">Email</label>
           <input type="email" id="email" name="email" formControlName="email" required>
           <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
@@ -32,7 +40,7 @@
           <button
             type="button"
             (click)="nextRegisterStep()"
-            [disabled]="!(registerForm.controls['email'].valid && registerForm.controls['password'].valid)"
+            [disabled]="!(registerForm.controls['username'].valid && registerForm.controls['email'].valid && registerForm.controls['password'].valid)"
           >
             Next
           </button>
@@ -41,10 +49,14 @@
 
       <div *ngIf="currentStep === 1">
         <div>
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" formControlName="username" required>
-          <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
-            <div *ngIf="registerForm.get('username')?.errors?.['required']">Username is required</div>
+          <label for="role">Role</label>
+          <select id="role" name="role" formControlName="role" required>
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+            <option value="guest">Guest</option>
+          </select>
+          <div *ngIf="registerForm.get('role')?.invalid && registerForm.get('role')?.touched">
+            <div *ngIf="registerForm.get('role')?.errors?.['required']">Role is required</div>
           </div>
         </div>
 
@@ -61,7 +73,7 @@
           <button
             type="button"
             (click)="nextRegisterStep()"
-            [disabled]="!(registerForm.controls['username'].valid && registerForm.controls['apiKey'].valid)"
+            [disabled]="!(registerForm.controls['role'].valid && registerForm.controls['apiKey'].valid)"
           >
             Next
           </button>

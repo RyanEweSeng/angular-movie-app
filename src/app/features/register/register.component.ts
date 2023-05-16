@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email], emailValidator(this.authService)],
       password: ['', [Validators.required, Validators.minLength(this.MIN_LENGTH)]],
       username: ['', Validators.required],
+      role: ['', Validators.required],
       apiKey: ['', Validators.required],
       planType: ['', Validators.required],
     })
