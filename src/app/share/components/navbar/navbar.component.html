@@ -4,7 +4,13 @@
     <a routerLink='/browse' href="browse" class="nav-link">Browse</a>
   </div>
   <div class="account">
-    <a routerLink='/login' href="login" class="nav-link">Sign In</a>
-    <a routerLink='/register' href="register" class="nav-link">Register</a>
+    <div *ngIf="!checkLoginStatus()">
+      <a routerLink='/login' href="login" class="nav-link">Sign In</a>
+      <a routerLink='/register' href="register" class="nav-link">Register</a>
+    </div>
+    <div *ngIf="checkLoginStatus()">
+      <span>Welcome, {{ getUsername() }}</span>
+      <button class="signout-btn" (click)="logout()">Sign Out</button>
+    </div>
   </div>
 </div>

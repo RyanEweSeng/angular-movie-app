@@ -7,8 +7,26 @@ import { Observable, tap } from 'rxjs';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:4231';
+  private loggedIn = false;
+  private username = "";
 
   constructor(private http: HttpClient) { }
+
+  get isLoggedIn(): boolean {
+    return this.loggedIn;
+  }
+
+  get getUsername(): string {
+    return this.username;
+  }
+
+  set setLoggedIn(_: boolean) {
+    this.loggedIn = true;
+  }
+
+  set setUsername(username: string) {
+    this.username = username;
+  }
 
   checkEmailExists(email: string): Observable<boolean> {
     const url = `${this.apiUrl}/auth/check-email`;
@@ -34,5 +52,10 @@ export class AuthService {
       password: formValue.password
     };
     return this.http.post<Object>(url, payload);
+  }
+
+  logoutUser() {
+    this.loggedIn = false;
+    this.username = "";
   }
 }

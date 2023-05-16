@@ -25,6 +25,11 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.authService.loginUser(this.loginForm.value).subscribe(res => {
         console.log(res);
+        console.log(this.loginForm.value);
+        if (res) {
+          this.authService.setLoggedIn = true;
+          this.authService.setUsername = this.loginForm.value['email'];
+        }
       });
     }
   }
