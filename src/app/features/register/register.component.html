@@ -51,9 +51,9 @@
         <div>
           <label for="role">Role</label>
           <select id="role" name="role" formControlName="role" required>
-            <option value="admin">Admin</option>
-            <option value="user">User</option>
-            <option value="guest">Guest</option>
+            <option value="ADMIN">Admin</option>
+            <option value="USER">User</option>
+            <option value="GUEST">Guest</option>
           </select>
           <div *ngIf="registerForm.get('role')?.invalid && registerForm.get('role')?.touched">
             <div *ngIf="registerForm.get('role')?.errors?.['required']">Role is required</div>

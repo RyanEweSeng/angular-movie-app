@@ -21,7 +21,7 @@ export class AuthService {
       username: formValue.username,
       email: formValue.email,
       password: formValue.password,
-      role: formValue.role.toUpperCase(),
+      role: formValue.role,
       tmdb_key: formValue.tmdb_key
     };
     return this.http.post<boolean>(url, payload);
