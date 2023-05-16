@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/share/services/auth/auth.service';
-import { emailValidator } from 'src/app/share/validators/email-exist.validator';
+import { emailAvailableValidator } from 'src/app/share/validators/email-available.validator';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email], emailValidator(this.authService)],
+      email: ['', [Validators.required, Validators.email], emailAvailableValidator(this.authService)],
       password: ['', [Validators.required, Validators.minLength(this.passwordMinLength)]],
       username: ['', Validators.required],
       role: ['', Validators.required],
@@ -37,6 +37,10 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.registerForm);
-    if (this.registerForm.valid) this.authService.registerUser(this.registerForm.value);
+    if (this.registerForm.valid) {
+      this.authService.registerUser(this.registerForm.value).subscribe(res => {
+        console.log(res);
+      });
+    }
   }
 }
