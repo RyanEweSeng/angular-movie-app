@@ -32,7 +32,7 @@
           <input type="password" id="password" name="password" formControlName="password" required>
           <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
             <div *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</div>
-            <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least {{ MIN_LENGTH }} characters</div>
+            <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least {{ passwordMinLength }} characters</div>
           </div>
         </div>
 
@@ -65,6 +65,7 @@
           <input type="text" id="tmdb_key" name="tmdb_key" formControlName="tmdb_key" required>
           <div *ngIf="registerForm.get('tmdb_key')?.invalid && registerForm.get('tmdb_key')?.touched">
             <div *ngIf="registerForm.get('tmdb_key')?.errors?.['required']">API key is required</div>
+            <div *ngIf="registerForm.get('tmdb_key')?.errors?.['minlength']">API key must be at least {{ apiKeyMinLength }} characters</div>
           </div>
         </div>
 

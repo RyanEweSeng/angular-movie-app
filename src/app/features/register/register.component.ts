@@ -11,17 +11,18 @@ import { emailValidator } from 'src/app/share/validators/email-exist.validator';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   currentStep: number = 0;
-  MIN_LENGTH: number = 8;
+  passwordMinLength: number = 8;
+  apiKeyMinLength: number = 15;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService) {  }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email], emailValidator(this.authService)],
-      password: ['', [Validators.required, Validators.minLength(this.MIN_LENGTH)]],
+      password: ['', [Validators.required, Validators.minLength(this.passwordMinLength)]],
       username: ['', Validators.required],
       role: ['', Validators.required],
-      tmdb_key: ['', Validators.required],
+      tmdb_key: ['', [Validators.required, Validators.minLength(this.apiKeyMinLength)]],
       plan_type: ['', Validators.required],
     })
   }
@@ -35,8 +36,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.registerForm.valid) {
-      console.log(this.registerForm);
-    }
+    console.log(this.registerForm);
+    if (this.registerForm.valid) this.authService.registerUser(this.registerForm.value);
   }
 }
