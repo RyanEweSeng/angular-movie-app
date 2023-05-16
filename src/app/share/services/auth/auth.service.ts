@@ -19,8 +19,8 @@ export class AuthService {
     const url = `${this.apiUrl}/auth/signup`;
     const payload = {
       username: formValue.username,
-      email: formValue.email,
       password: formValue.password,
+      email: formValue.email,
       role: formValue.role,
       tmdb_key: formValue.tmdb_key
     };
