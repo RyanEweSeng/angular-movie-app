@@ -46,9 +46,9 @@
         <div>
           <label for="role">Role</label>
           <select id="role" name="role" formControlName="role" required>
-            <option value="ADMIN">Admin</option>
             <option value="USER">User</option>
-            <option value="GUEST">Guest</option>
+            <option value="ADMIN">Admin</option>
+            <option value="SUPERUSER">Superuser</option>
           </select>
           <div *ngIf="registerForm.get('role')?.invalid && registerForm.get('role')?.touched">
             <div *ngIf="registerForm.get('role')?.errors?.['required']">Role is required</div>
@@ -81,13 +81,13 @@
           <h4>Select a plan</h4>
           <div class="radio-container">
             <label>
-              <input type="radio" formControlName="plan_type" name="plan_type" value="Free"> Free
+              <input type="radio" formControlName="plan_type" name="plan_type" value="USER"> Free
             </label>
             <label>
-              <input type="radio" formControlName="plan_type" name="plan_type" value="Standard"> Standard
+              <input type="radio" formControlName="plan_type" name="plan_type" value="ADMIN"> Standard
             </label>
             <label>
-              <input type="radio" formControlName="plan_type" name="plan_type" value="Premium"> Premium
+              <input type="radio" formControlName="plan_type" name="plan_type" value="SUPERUSER"> Premium
             </label>
           </div>
         </div>

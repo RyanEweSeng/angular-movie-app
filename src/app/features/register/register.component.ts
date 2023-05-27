@@ -11,6 +11,7 @@ import { emailAvailableValidator } from 'src/app/core/validators/email-available
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   currentStep: number = 0;
+  usernameMinLength: number = 4;
   passwordMinLength: number = 8;
   apiKeyMinLength: number = 15;
 
@@ -20,7 +21,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email], emailAvailableValidator(this.authService)],
       password: ['', [Validators.required, Validators.minLength(this.passwordMinLength)]],
-      username: ['', Validators.required],
+      username: ['', [Validators.required, Validators.minLength(this.usernameMinLength)]],
       role: ['', Validators.required],
       tmdb_key: ['', [Validators.required, Validators.minLength(this.apiKeyMinLength)]],
       plan_type: ['', Validators.required],
@@ -36,7 +37,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.registerForm);
+    console.log(this.registerForm.value);
     if (this.registerForm.valid) {
       this.authService.registerUser(this.registerForm.value).subscribe(res => {
         console.log(res);
