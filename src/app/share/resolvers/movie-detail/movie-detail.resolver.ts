@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { MovieService } from '../../services/movie-data/movie.service';
+import { MovieService } from '../../../core/services/movie-data/movie.service';
 
 @Injectable({
   providedIn: 'root'

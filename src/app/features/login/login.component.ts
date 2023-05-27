@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/share/services/auth/auth.service';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { emailUnavailableValidator } from 'src/app/share/validators/email-unavailable.validator';
 
 @Component({
