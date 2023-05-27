@@ -1,31 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private apiUrl = 'http://localhost:4231';
-  private loggedIn = false;
-  private username = "";
+  private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private usernameSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private role = "";
+
+  isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
+  username$: Observable<string> = this.usernameSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
-  get isLoggedIn(): boolean {
-    return this.loggedIn;
-  }
-
-  get getUsername(): string {
-    return this.username;
-  }
-
-  set setLoggedIn(_: boolean) {
-    this.loggedIn = true;
-  }
-
-  set setUsername(username: string) {
-    this.username = username;
+  get getRole(): string {
+    return this.role;
   }
 
   checkEmailExists(email: string): Observable<boolean> {
@@ -45,17 +37,24 @@ export class AuthService {
     return this.http.post<Object>(url, payload);
   }
 
-  loginUser(formValue: { email: string, password: string }): Observable<Object> {
+  loginUser(formValue: { email: string, password: string }) {
     const url = `${this.apiUrl}/auth/signin`;
     const payload = {
       email: formValue.email,
       password: formValue.password
     };
-    return this.http.post<Object>(url, payload);
+    
+    this.http.post<Object>(url, payload).subscribe(res => {
+      const response = res as { accessToken: string, role: string };
+      this.usernameSubject.next(formValue.email);
+      this.isLoggedInSubject.next(true);
+      this.role = response.role;
+    });
   }
 
   logoutUser() {
-    this.loggedIn = false;
-    this.username = "";
+    this.usernameSubject.next("");
+    this.isLoggedInSubject.next(false);
+    this.role = "";
   }
 }

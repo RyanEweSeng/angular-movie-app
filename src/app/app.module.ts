@@ -10,6 +10,7 @@ import { RegisterModule } from './features/register/register.module';
 import { BrowseModule } from './features/browse/browse.module';
 
 import { AppComponent } from './app.component';
+import { AuthService } from './core/services/auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { AppComponent } from './app.component';
     RegisterModule,
     BrowseModule,
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
