@@ -1,11 +1,6 @@
 <div class="register-container">
   <h1>Let's get you set up</h1>
   <h2>It's free. No subscription required</h2>
-  <div class="btn-container">
-    <button class="btn google">Register via Google</button>
-    <button class="btn facebook">Register via Facebook</button>
-  </div>
-  <h4>Register via Email</h4>
   <div class="form-container">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div *ngIf="currentStep === 0">
