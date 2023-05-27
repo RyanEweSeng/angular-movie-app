@@ -1,13 +1,13 @@
 import { AbstractControl, AsyncValidatorFn } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { AuthService } from '../../core/services/auth/auth.service';
+import { AuthService } from '../services/auth/auth.service';
 
-export function emailUnavailableValidator(authService: AuthService): AsyncValidatorFn {
+export function emailAvailableValidator(authService: AuthService): AsyncValidatorFn {
   return (control: AbstractControl): Observable<{ [key: string]: any } | null> => {
     return authService.checkEmailExists(control.value).pipe(
       map(res => {
-        return res ? null : { 'emailExists': false };
+        return res ? { 'emailExists': true } : null;
       }),
       catchError(() => {
         return of(null);

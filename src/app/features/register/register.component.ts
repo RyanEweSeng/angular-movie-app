@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { emailAvailableValidator } from 'src/app/share/validators/email-available.validator';
+import { emailAvailableValidator } from 'src/app/core/validators/email-available.validator';
 
 @Component({
   selector: 'app-register',
