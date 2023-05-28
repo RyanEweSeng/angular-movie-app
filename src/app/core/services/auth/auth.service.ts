@@ -8,7 +8,7 @@ import { UserService } from '../user/user.service';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = "https://nest-movie-backend.onrender.com";
+  private apiUrl = "http://localhost:4231";
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
@@ -27,9 +27,10 @@ export class AuthService {
       tmdb_key: formValue.tmdb_key
     };
 
-    this.http.post<Object>(url, payload).subscribe(res => {
+    this.http.post<Object>(url, payload).subscribe((res: any) => {
       console.log("register response")
       console.log(res);
+      this.updateDetails(res);
     });
   }
 
@@ -43,14 +44,7 @@ export class AuthService {
     this.http.post<Object>(url, payload).subscribe((res: any) => {
       console.log("login response")
       console.log(res);
-      const decodedAccessToken = this.decodeToken(res.accessToken);
-
-      localStorage.setItem("username", decodedAccessToken.username);
-      localStorage.setItem("role", res.role);
-      localStorage.setItem("token", res.accessToken);
-
-      this.userService.username = decodedAccessToken.username;
-      this.userService.role = res.role;
+      this.updateDetails(res);
     });
   }
 
@@ -63,9 +57,7 @@ export class AuthService {
     this.http.patch<Object>(url, payload).subscribe((res: any) => {
       console.log("update role response")
       console.log(res);
-      localStorage.setItem("token", res.accessToken);
-      localStorage.setItem("role", res.role);
-      this.userService.role = res.role;
+      this.updateDetails(res);
     })
   }
 
@@ -77,8 +69,15 @@ export class AuthService {
     this.userService.role = "";
   }
 
-  private decodeToken(token: string): any | null {
+  private updateDetails(response: any): void {
     const jwtHelper = new JwtHelperService();
-    return jwtHelper.decodeToken(token);
+    const decodedAccessToken = jwtHelper.decodeToken(response.accessToken);
+
+    localStorage.setItem("username", decodedAccessToken.username);
+    localStorage.setItem("role", response.role);
+    localStorage.setItem("token", response.accessToken);
+
+    this.userService.username = decodedAccessToken.username;
+    this.userService.role = response.role;
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { emailAvailableValidator } from 'src/app/core/validators/email-available.validator';
 
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit {
   passwordMinLength: number = 8;
   apiKeyMinLength: number = 15;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) {  }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {  }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -38,6 +39,7 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     if (this.registerForm.valid) {
       this.authService.registerUser(this.registerForm.value);
+      this.router.navigate(['/']);
     }
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 export class ChangeRoleComponent implements OnInit {
   roleForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.roleForm = this.formBuilder.group({
@@ -21,6 +22,7 @@ export class ChangeRoleComponent implements OnInit {
   onSubmit(): void {
     if (this.roleForm.valid) {
       this.authService.updateRole(this.roleForm.value);
+      this.router.navigate(['/browse']);
     }
   }
 }
