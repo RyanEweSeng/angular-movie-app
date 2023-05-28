@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { emailUnavailableValidator } from 'src/app/core/validators/email-unavailable.validator';
 
@@ -11,7 +12,7 @@ import { emailUnavailableValidator } from 'src/app/core/validators/email-unavail
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) {  }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {  }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -21,9 +22,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.loginForm);
     if (this.loginForm.valid) {
       this.authService.loginUser(this.loginForm.value);
+      this.router.navigate(['/browse']);
     }
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../core/services/auth/auth.service';
 import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { UserService } from 'src/app/core/services/user/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,14 +9,12 @@ import { Observable } from 'rxjs';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  isLoggedIn$!: Observable<boolean>;
   username$!: Observable<string>;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private userService: UserService) { }
 
   ngOnInit() { 
-    this.isLoggedIn$ = this.authService.isLoggedIn$;
-    this.username$ = this.authService.username$;
+    this.username$ = this.userService.username$;
   }
 
   logout() {

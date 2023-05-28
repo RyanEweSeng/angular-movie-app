@@ -23,8 +23,7 @@ export class RegisterComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(this.passwordMinLength)]],
       username: ['', [Validators.required, Validators.minLength(this.usernameMinLength)]],
       role: ['', Validators.required],
-      tmdb_key: ['', [Validators.required, Validators.minLength(this.apiKeyMinLength)]],
-      plan_type: ['', Validators.required],
+      tmdb_key: ['', [Validators.required, Validators.minLength(this.apiKeyMinLength)]]
     })
   }
 
@@ -37,7 +36,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.registerForm.value);
     if (this.registerForm.valid) {
       this.authService.registerUser(this.registerForm.value).subscribe(res => {
         console.log(res);

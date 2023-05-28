@@ -1,24 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { Observable } from 'rxjs';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private apiUrl = 'http://localhost:4231';
-  private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  private usernameSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  private role = "";
 
-  isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
-  username$: Observable<string> = this.usernameSubject.asObservable();
-
-  constructor(private http: HttpClient) { }
-
-  get getRole(): string {
-    return this.role;
-  }
+  constructor(private http: HttpClient, private userService: UserService) { }
 
   checkEmailExists(email: string): Observable<boolean> {
     const url = `${this.apiUrl}/auth/check-email`;
@@ -34,27 +26,42 @@ export class AuthService {
       role: formValue.role,
       tmdb_key: formValue.tmdb_key
     };
+
     return this.http.post<Object>(url, payload);
   }
 
-  loginUser(formValue: { email: string, password: string }) {
+  loginUser(formValue: { email: string, password: string }): void {
     const url = `${this.apiUrl}/auth/signin`;
     const payload = {
       email: formValue.email,
       password: formValue.password
     };
     
-    this.http.post<Object>(url, payload).subscribe(res => {
-      const response = res as { accessToken: string, role: string };
-      this.usernameSubject.next(formValue.email);
-      this.isLoggedInSubject.next(true);
-      this.role = response.role;
+    // send request to backend to verify the login
+    // also sets the username (in userService) and role fields
+    this.http.post<Object>(url, payload).subscribe((res: any) => {
+      // take access token and decode it
+      const decodedAccessToken = this.decodeToken(res.accessToken);
+
+      // store info
+      localStorage.setItem("username", decodedAccessToken.username);
+      localStorage.setItem("role", res.role);
+      localStorage.setItem("token", decodedAccessToken);
+      this.userService.username = decodedAccessToken.username;
+      this.userService.role = res.role;
     });
   }
 
-  logoutUser() {
-    this.usernameSubject.next("");
-    this.isLoggedInSubject.next(false);
-    this.role = "";
+  logoutUser(): void {
+    localStorage.removeItem("username");
+    localStorage.removeItem("role");
+    localStorage.removeItem("token");
+    this.userService.username = "";
+    this.userService.role = "";
+  }
+
+  private decodeToken(token: string): any | null {
+    const jwtHelper = new JwtHelperService();
+    return jwtHelper.decodeToken(token);
   }
 }
