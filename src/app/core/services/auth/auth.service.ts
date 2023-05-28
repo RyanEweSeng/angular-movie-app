@@ -8,8 +8,7 @@ import { UserService } from '../user/user.service';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:4231';
-  private token = '';
+  private apiUrl = "https://nest-movie-backend.onrender.com";
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
@@ -18,11 +17,7 @@ export class AuthService {
     return this.http.post<boolean>(url, { email });
   }
 
-  get authToken(): string {
-    return this.token;
-  }
-
-  registerUser(formValue: { username: string, email: string, password: string, role: string, tmdb_key: string }): Observable<Object> { 
+  registerUser(formValue: { username: string, email: string, password: string, role: string, tmdb_key: string }): void { 
     const url = `${this.apiUrl}/auth/signup`;
     const payload = {
       username: formValue.username,
@@ -32,7 +27,10 @@ export class AuthService {
       tmdb_key: formValue.tmdb_key
     };
 
-    return this.http.post<Object>(url, payload);
+    this.http.post<Object>(url, payload).subscribe(res => {
+      console.log("register response")
+      console.log(res);
+    });
   }
 
   loginUser(formValue: { email: string, password: string }): void {
@@ -42,35 +40,28 @@ export class AuthService {
       password: formValue.password
     };
     
-    // send request to backend to verify the login
-    // also sets the username (in userService) and role fields
     this.http.post<Object>(url, payload).subscribe((res: any) => {
-      // take access token and decode it
+      console.log("login response")
+      console.log(res);
       const decodedAccessToken = this.decodeToken(res.accessToken);
 
-      // store info
       localStorage.setItem("username", decodedAccessToken.username);
       localStorage.setItem("role", res.role);
       localStorage.setItem("token", res.accessToken);
 
       this.userService.username = decodedAccessToken.username;
       this.userService.role = res.role;
-      this.token = res.accessToken;
     });
   }
 
   updateRole(formValue: { role: string }): void {
     const url = `${this.apiUrl}/auth/userupdate`;
-    const decodedAcessToken = this.decodeToken(localStorage.getItem("token") || "");
     const payload = {
-      // username: decodedAcessToken.username,
-      // password: decodedAcessToken.password,
-      // email: decodedAcessToken.email,
       role: formValue.role,
-      // tmdb_key: decodedAcessToken.tmdb_key
     }
 
     this.http.patch<Object>(url, payload).subscribe((res: any) => {
+      console.log("update role response")
       console.log(res);
       localStorage.setItem("token", res.accessToken);
       localStorage.setItem("role", res.role);
