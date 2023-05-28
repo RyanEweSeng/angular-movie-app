@@ -18,7 +18,10 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
-    // Redirect to a different route or display an error message
-    return this.router.parseUrl('/change');
+    if (role) {
+      return this.router.parseUrl('/change');
+    } else {
+      return this.router.parseUrl('/login');
+    }
   }
 }
