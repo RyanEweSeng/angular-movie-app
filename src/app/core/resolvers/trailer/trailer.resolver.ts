@@ -10,7 +10,7 @@ export class TrailerResolver {
   constructor(private movieService: MovieService) {  }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    const movieId = parseInt(route.paramMap.get('id') || "0", 10);
+    const movieId = parseInt(route.paramMap.get('id') || '0', 10);
     return this.movieService.getOfficialTrailer(movieId);
   }
 }

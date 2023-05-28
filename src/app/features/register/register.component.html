@@ -9,6 +9,7 @@
           <input type="text" id="username" name="username" formControlName="username" required>
           <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
             <div *ngIf="registerForm.get('username')?.errors?.['required']">Username is required</div>
+            <div *ngIf="registerForm.get('username')?.errors?.['minLength']">Username must be at least {{ usernameMinLength }} characters</div>
           </div>
         </div>
 

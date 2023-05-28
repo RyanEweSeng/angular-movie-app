@@ -8,7 +8,7 @@ import { UserService } from '../user/user.service';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = "http://localhost:4231";
+  private apiUrl = 'http://localhost:4231';
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
@@ -42,7 +42,7 @@ export class AuthService {
     };
     
     this.http.post<Object>(url, payload).subscribe((res: any) => {
-      console.log("login response")
+      console.log('login response')
       console.log(res);
       this.updateDetails(res);
     });
@@ -55,27 +55,27 @@ export class AuthService {
     }
 
     this.http.patch<Object>(url, payload).subscribe((res: any) => {
-      console.log("update role response")
+      console.log('update role response')
       console.log(res);
       this.updateDetails(res);
     })
   }
 
   logoutUser(): void {
-    localStorage.removeItem("username");
-    localStorage.removeItem("role");
-    localStorage.removeItem("token");
-    this.userService.username = "";
-    this.userService.role = "";
+    localStorage.removeItem('username');
+    localStorage.removeItem('role');
+    localStorage.removeItem('token');
+    this.userService.username = '';
+    this.userService.role = '';
   }
 
   private updateDetails(response: any): void {
     const jwtHelper = new JwtHelperService();
     const decodedAccessToken = jwtHelper.decodeToken(response.accessToken);
 
-    localStorage.setItem("username", decodedAccessToken.username);
-    localStorage.setItem("role", response.role);
-    localStorage.setItem("token", response.accessToken);
+    localStorage.setItem('username', decodedAccessToken.username);
+    localStorage.setItem('role', response.role);
+    localStorage.setItem('token', response.accessToken);
 
     this.userService.username = decodedAccessToken.username;
     this.userService.role = response.role;

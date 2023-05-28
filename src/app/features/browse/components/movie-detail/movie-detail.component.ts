@@ -19,7 +19,7 @@ export class MovieDetailComponent implements OnInit {
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private movieService: MovieService) { }
 
   ngOnInit() {
-    this.movieId = parseInt(this.activatedRoute.snapshot.paramMap.get('id') || "0", 10);
+    this.movieId = parseInt(this.activatedRoute.snapshot.paramMap.get('id') || '0', 10);
     this.getDetails();
     this.getTrailerKey();
   }
@@ -33,12 +33,8 @@ export class MovieDetailComponent implements OnInit {
 
   getTrailerKey() {
     this.activatedRoute.data.subscribe(data => {
-      this.trailerKey = data['trailer'].results.filter((item: { name: string }) => item.name === "Official Trailer")[0].key;
+      this.trailerKey = data['trailer'].results.filter((item: { name: string }) => item.name === 'Official Trailer')[0].key;
     });
-    // this.movieService.getOfficialTrailer(this.movieId).subscribe(res => {
-    //   this.trailerKey = res.results.filter((item: { name: string; }) => item.name === "Official Trailer")[0].key;
-    //   console.log(this.trailerKey);
-    // });
   }
 
   showTrailer() {

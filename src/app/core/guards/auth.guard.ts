@@ -9,12 +9,12 @@ export class AuthGuard implements CanActivate {
   constructor(private userService: UserService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree {
-    let role = "";
+    let role = '';
     this.userService.role$.subscribe(res => {
       role = res;
     });
 
-    if (role === "ADMIN" || role === "SUPERUSER") {
+    if (role === 'ADMIN' || role === 'SUPERUSER') {
       return true;
     }
 

@@ -12,9 +12,10 @@ import { emailAvailableValidator } from 'src/app/core/validators/email-available
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   currentStep: number = 0;
-  usernameMinLength: number = 4;
-  passwordMinLength: number = 8;
-  apiKeyMinLength: number = 15;
+
+  readonly usernameMinLength: number = 4;
+  readonly passwordMinLength: number = 8;
+  readonly apiKeyMinLength: number = 15;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {  }
 

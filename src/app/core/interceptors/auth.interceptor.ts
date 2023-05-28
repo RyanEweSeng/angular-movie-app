@@ -13,8 +13,8 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (request.method === "PATCH") {
-      const authToken = localStorage.getItem("token");
+    if (request.method === 'PATCH') {
+      const authToken = localStorage.getItem('token');
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${authToken}`
