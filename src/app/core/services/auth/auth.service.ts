@@ -9,12 +9,17 @@ import { UserService } from '../user/user.service';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:4231';
+  private token = '';
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
   checkEmailExists(email: string): Observable<boolean> {
     const url = `${this.apiUrl}/auth/check-email`;
     return this.http.post<boolean>(url, { email });
+  }
+
+  get authToken(): string {
+    return this.token;
   }
 
   registerUser(formValue: { username: string, email: string, password: string, role: string, tmdb_key: string }): Observable<Object> { 
@@ -46,10 +51,31 @@ export class AuthService {
       // store info
       localStorage.setItem("username", decodedAccessToken.username);
       localStorage.setItem("role", res.role);
-      localStorage.setItem("token", decodedAccessToken);
+      localStorage.setItem("token", res.accessToken);
+
       this.userService.username = decodedAccessToken.username;
       this.userService.role = res.role;
+      this.token = res.accessToken;
     });
+  }
+
+  updateRole(formValue: { role: string }): void {
+    const url = `${this.apiUrl}/auth/userupdate`;
+    const decodedAcessToken = this.decodeToken(localStorage.getItem("token") || "");
+    const payload = {
+      // username: decodedAcessToken.username,
+      // password: decodedAcessToken.password,
+      // email: decodedAcessToken.email,
+      role: formValue.role,
+      // tmdb_key: decodedAcessToken.tmdb_key
+    }
+
+    this.http.patch<Object>(url, payload).subscribe((res: any) => {
+      console.log(res);
+      localStorage.setItem("token", res.accessToken);
+      localStorage.setItem("role", res.role);
+      this.userService.role = res.role;
+    })
   }
 
   logoutUser(): void {

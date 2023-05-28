@@ -5,6 +5,7 @@ import { MovieDetailComponent } from './components/movie-detail/movie-detail.com
 import { MovieListComponent } from './components/movie-list/movie-list.component';
 import { MovieDetailResolver } from 'src/app/core/resolvers/movie-detail/movie-detail.resolver';
 import { TrailerResolver } from 'src/app/core/resolvers/trailer/trailer.resolver';
+import { AuthGuard } from 'src/app/core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -12,7 +13,7 @@ const routes: Routes = [
     component: BrowseComponent,
     children: [
       { path: '', component: MovieListComponent },
-      { path: ':id', component: MovieDetailComponent, resolve: { movieDetails: MovieDetailResolver, trailer: TrailerResolver } }
+      { path: ':id', component: MovieDetailComponent, resolve: { movieDetails: MovieDetailResolver, trailer: TrailerResolver }, canActivate: [AuthGuard] }
     ]
   }
 ];

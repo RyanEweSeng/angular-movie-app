@@ -10,9 +10,13 @@ import { HomeModule } from './features/home/home.module';
 import { LoginModule } from './features/login/login.module';
 import { RegisterModule } from './features/register/register.module';
 import { BrowseModule } from './features/browse/browse.module';
+import { ChangeRoleModule } from './features/change-role/change-role.module';
 
 import { AuthService } from './core/services/auth/auth.service';
 import { UserService } from './core/services/user/user.service';
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -27,8 +31,17 @@ import { UserService } from './core/services/user/user.service';
     LoginModule,
     RegisterModule,
     BrowseModule,
+    ChangeRoleModule,
   ],
-  providers: [AuthService, UserService],
+  providers: [
+    AuthService,
+    UserService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

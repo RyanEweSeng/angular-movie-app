@@ -1,0 +1,24 @@
+<div class="change-container">
+  <h1>Select role to change to:</h1>
+  <div class="form-container">
+    <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label>
+          <input type="radio" formControlName="role" value="USER"> User
+        </label>
+      </div>
+      <div>
+        <label>
+          <input type="radio" formControlName="role" value="ADMIN"> Admin
+        </label>
+      </div>
+      <div>
+        <label>
+          <input type="radio" formControlName="role" value="SUPERUSER"> Superuser
+        </label>
+      </div>
+    
+      <button type="submit" [disabled]="!roleForm.valid">Submit</button>
+    </form>
+  </div>
+</div>

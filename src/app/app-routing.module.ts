@@ -18,6 +18,10 @@ const routes: Routes = [
     path: 'browse',
     loadChildren: () => import('./features/browse/browse.module').then(m => m.BrowseModule)
   },
+  {
+    path: 'change',
+    loadChildren: () => import('./features/change-role/change-role.module').then(m => m.ChangeRoleModule)
+  },
 ];
 
 @NgModule({
