@@ -9,7 +9,7 @@ import { UserService } from '../user/user.service';
 })
 export class AuthService {
   // private apiUrl = 'http://localhost:4231';
-  private apiUrl = 'https://https://nest-movie-backend.onrender.com';
+  private apiUrl = 'https://nest-movie-backend.onrender.com';
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
