@@ -13,17 +13,14 @@ mat-card-header {
   justify-content: center;
   align-items: center;
   height: 100px;
+  padding: 30px;
 }
 
 mat-card-title {
   color: white;
   font-size: 24px;
   font-weight: 500;
-}
-
-mat-form-field {
-  padding: 10px;
-  width: 300px;
+  text-align: center;
 }
 
 mat-card-footer {
@@ -43,4 +40,10 @@ form {
 button:disabled {
   background-color: red;
   color: white;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }

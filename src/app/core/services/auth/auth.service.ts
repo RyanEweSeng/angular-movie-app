@@ -8,7 +8,8 @@ import { UserService } from '../user/user.service';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:4231';
+  // private apiUrl = 'http://localhost:4231';
+  private apiUrl = 'https://https://nest-movie-backend.onrender.com';
 
   constructor(private http: HttpClient, private userService: UserService) { }
 

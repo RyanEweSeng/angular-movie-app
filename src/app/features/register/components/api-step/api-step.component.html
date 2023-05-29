@@ -1,0 +1,15 @@
+<form [formGroup]="parentFormGroup">
+  <mat-error *ngIf="parentFormGroup.get('role')?.errors?.['required']">Role is required.</mat-error>
+  <mat-radio-group formControlName="role">
+    <mat-radio-button value="USER">User</mat-radio-button>
+    <mat-radio-button value="ADMIN">Admin</mat-radio-button>
+    <mat-radio-button value="SUPERUSER">Superuser</mat-radio-button>
+  </mat-radio-group>
+
+  <mat-form-field>
+    <mat-label>TMDB API Key</mat-label>
+    <input matInput type="text" placeholder="TMDB key" name="tmdb_key" formControlName="tmdb_key" required>
+    <mat-error *ngIf="parentFormGroup.get('tmdb_key')?.errors?.['required']">API key is required.</mat-error>
+    <mat-error *ngIf="!parentFormGroup.get('tmdb_key')?.errors?.['required'] && parentFormGroup.get('tmdb_key')?.errors?.['minlength']">API key must be at least {{ apiKeyMinLength }} characters.</mat-error>
+  </mat-form-field>
+</form>

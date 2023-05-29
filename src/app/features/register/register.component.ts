@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { FloatLabelType } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { emailAvailableValidator } from 'src/app/core/validators/email-available.validator';
@@ -43,9 +42,5 @@ export class RegisterComponent implements OnInit {
       this.authService.registerUser(this.registerForm.value);
       this.router.navigate(['/']);
     }
-  }
-
-  getFloatValue(controlName: string): FloatLabelType {
-    return this.registerForm.get(controlName)?.value || 'auto';
   }
 }

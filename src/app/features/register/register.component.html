@@ -1,72 +1,29 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Let's get you set up</mat-card-title>
-    <mat-card-title>It's free. No subscription required</mat-card-title>
+    <mat-card-title>Let's get you set up!</mat-card-title>
+    <mat-card-title>It's free. No subscription required.</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <ng-container *ngIf="currentStep === 0">
-        <mat-form-field [floatLabel]="getFloatValue('username')"> 
-          <mat-label>Username</mat-label>
-          <input matInput type="text" placeholder="Username" name="username" formControlName="username" required>
-          <mat-error *ngIf="registerForm.get('username')?.errors?.['required']">Username is required.</mat-error>
-          <mat-error *ngIf="!registerForm.get('username')?.errors?.['required'] && !registerForm.get('username')?.errors?.['minLength']">Username must be at least {{ usernameMinLength }} characters.</mat-error>
-        </mat-form-field>
-
-        <mat-form-field [floatLabel]="getFloatValue('email')"> 
-          <mat-label>Email</mat-label>
-          <input matInput type="email" placeholder="Email" name="email" formControlName="email" required>
-          <mat-error *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</mat-error>
-          <mat-error *ngIf="!registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.errors?.['email']">Invalid email format.</mat-error>
-          <mat-error *ngIf="!registerForm.get('email')?.errors?.['required'] && !registerForm.get('email')?.errors?.['email'] && registerForm.get('email')?.errors?.['emailExists']">Account already created with this email.</mat-error>
-        </mat-form-field>
-
-        <mat-form-field [floatLabel]="getFloatValue('password')"> 
-          <mat-label>Password</mat-label>
-          <input matInput type="password" placeholder="Password" name="password" formControlName="password" required>
-          <mat-error *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</mat-error>
-          <mat-error *ngIf="!registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.errors?.['minlength']">Password must be at least {{ passwordMinLength }} characters.</mat-error>
-        </mat-form-field>
-
-        <div>
-          <button
-            mat-flat-button
-            (click)="nextRegisterStep()"
-            [disabled]="!(registerForm.controls['username'].valid && registerForm.controls['email'].valid && registerForm.controls['password'].valid)"
-          >
-            Next
-          </button>
-        </div>
+        <app-userpass-step [parentFormGroup]="registerForm"></app-userpass-step>
+        <button
+          mat-flat-button
+          (click)="nextRegisterStep()"
+          [disabled]="!(registerForm.controls['username'].valid && registerForm.controls['email'].valid && registerForm.controls['password'].valid)"
+        >
+          Next
+        </button>
       </ng-container>
 
-      <div *ngIf="currentStep === 1">
-        <div>
-          <label for="role">Role</label>
-          <select id="role" name="role" formControlName="role" required>
-            <option value="USER">User</option>
-            <option value="ADMIN">Admin</option>
-            <option value="SUPERUSER">Superuser</option>
-          </select>
-          <div *ngIf="registerForm.get('role')?.invalid && registerForm.get('role')?.touched">
-            <div *ngIf="registerForm.get('role')?.errors?.['required']">Role is required</div>
-          </div>
+      <ng-container *ngIf="currentStep === 1">
+        <app-api-step [parentFormGroup]="registerForm"></app-api-step>
+        <div class="btn-container">
+          <button mat-flat-button (click)="prevRegisterStep()">Back</button>
+          <button mat-flat-button [disabled]="!registerForm.valid">Sign Up</button>
         </div>
-
-        <div>
-          <label for="tmdb_key">TMDB API Key</label>
-          <input type="text" id="tmdb_key" name="tmdb_key" formControlName="tmdb_key" required>
-          <div *ngIf="registerForm.get('tmdb_key')?.invalid && registerForm.get('tmdb_key')?.touched">
-            <div *ngIf="registerForm.get('tmdb_key')?.errors?.['required']">API key is required</div>
-            <div *ngIf="registerForm.get('tmdb_key')?.errors?.['minlength']">API key must be at least {{ apiKeyMinLength }} characters</div>
-          </div>
-        </div>
-
-        <div>
-          <button type="button" (click)="prevRegisterStep()">Back</button>
-          <button type="submit" [disabled]="!registerForm.valid">Sign Up</button>
-        </div>
-      </div>
+      </ng-container>
     </form>
   </mat-card-content>
 </mat-card>
