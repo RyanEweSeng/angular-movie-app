@@ -1,28 +1,31 @@
-<div class="login-container">
-  <h1>Welcome Back!</h1>
-  <div class="form-container">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <div>
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" formControlName="email" required>
-        <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
-          <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</div>
-          <div *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email format.</div>
-          <div *ngIf="!loginForm.get('email')?.errors?.['emailExists']">Account does not exist</div>
-        </div>
-      </div>
-      <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" formControlName="password" required>
-        <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
-          <div *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</div>
-        </div>
-      </div>
-      <button type="submit">Sign In</button>
-    </form>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Welcome Back!</mat-card-title>
+  </mat-card-header>
 
-    <div>
-      <span>New to Tubi? <a routerLink="/register">Register here!</a></span>
-    </div>
-  </div>
-</div>
+  <mat-card-content>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div *ngIf="!loginSuccess" class="login-fail">Invalid username/password</div>
+      <mat-form-field [floatLabel]="getFloatValue('email')">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" placeholder="Email" name="email" formControlName="email" required />
+        <mat-error *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</mat-error>
+        <mat-error *ngIf="!loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.errors?.['email']">Invalid email format.</mat-error>
+        <mat-error *ngIf="!loginForm.get('email')?.errors?.['required'] && !loginForm.get('email')?.errors?.['email'] && !loginForm.get('email')?.errors?.['emailExists']">Account does not exist.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field [floatLabel]="getFloatValue('password')">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" placeholder="Password" name="password" formControlName="password" required />
+        <mat-error *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</mat-error>
+      </mat-form-field>
+
+      <button mat-flat-button class="submit-btn" type="submit">Sign In</button>
+    </form>
+  </mat-card-content>
+
+  <mat-card-footer>
+    <span class="new-account-prompt">New to MovieApp?</span>
+    <a class="register-link" routerLink="/register" mat-flat-button color="accent">Register here!</a>
+  </mat-card-footer>
+</mat-card>

@@ -1,16 +1,17 @@
 <div class="nav-bar">
-  <div class="options">
-    <a routerLink='/' href="" class="nav-link">Home</a>
-    <a routerLink='/browse' href="browse" class="nav-link">Browse</a>
+  <div class="nav-options">
+    <a mat-button color="primary" routerLink='/' href="" class="nav-link">Home</a>
+    <a mat-button color="primary" routerLink='/browse' href="browse" class="nav-link">Browse</a>
   </div>
-  <div class="account">
+  <div class="account-options">
     <div *ngIf="username$ | async; else signInLink">
-      <span>Welcome, {{ username$ | async }}</span>
-      <button class="signout-btn" (click)="logout()">Sign Out</button>
+      <span>Welcome, {{ username$ | async }}!</span>
+      <a routerLink='/change' href="change" class="nav-link">Change Role</a>
+      <button mat-flat-button color="warn" (click)="logout()">Sign Out</button>
     </div>
     <ng-template #signInLink>
-      <a routerLink='/login' href="login" class="nav-link">Sign In</a>
-      <a routerLink='/register' href="register" class="nav-link">Register</a>
+      <a mat-button color="primary" routerLink='/login' href="login" class="nav-link">Sign In</a>
+      <a mat-button color="primary" routerLink='/register' href="register" class="nav-link">Register</a>
     </ng-template>
   </div>
 </div>

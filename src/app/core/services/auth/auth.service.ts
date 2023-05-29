@@ -28,24 +28,20 @@ export class AuthService {
     };
 
     this.http.post<Object>(url, payload).subscribe((res: any) => {
-      console.log("register response")
+      console.log("register response");
       console.log(res);
       this.updateDetails(res);
     });
   }
 
-  loginUser(formValue: { email: string, password: string }): void {
+  loginUser(formValue: { email: string, password: string }): Observable<Object> {
     const url = `${this.apiUrl}/auth/signin`;
     const payload = {
       email: formValue.email,
       password: formValue.password
     };
     
-    this.http.post<Object>(url, payload).subscribe((res: any) => {
-      console.log('login response')
-      console.log(res);
-      this.updateDetails(res);
-    });
+    return this.http.post<Object>(url, payload);
   }
 
   updateRole(formValue: { role: string }): void {
@@ -55,7 +51,7 @@ export class AuthService {
     }
 
     this.http.patch<Object>(url, payload).subscribe((res: any) => {
-      console.log('update role response')
+      console.log('update role response');
       console.log(res);
       this.updateDetails(res);
     })
@@ -69,7 +65,7 @@ export class AuthService {
     this.userService.role = '';
   }
 
-  private updateDetails(response: any): void {
+  updateDetails(response: any): void {
     const jwtHelper = new JwtHelperService();
     const decodedAccessToken = jwtHelper.decodeToken(response.accessToken);
 

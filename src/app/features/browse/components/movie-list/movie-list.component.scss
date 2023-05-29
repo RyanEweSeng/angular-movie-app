@@ -2,4 +2,9 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  position: relative;
+  background-image: url('https://d0.tubitv.com/web-k8s/dist/img/964df397c603.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 67%;
 }

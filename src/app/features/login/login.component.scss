@@ -1,6 +1,37 @@
-h1, h4 {
+mat-card {
+  border-radius: 0;
+  height: 85vh;
+  position: relative;
+  background-image: url('https://d0.tubitv.com/web-k8s/dist/img/964df397c603.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 67%;
+}
+
+mat-card-header {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+mat-card-title {
   color: white;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+mat-form-field {
+  padding: 10px;
+  width: 300px;
+}
+
+mat-card-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  gap: 10px;
 }
 
 form {
@@ -9,43 +40,22 @@ form {
   align-items: center;
 }
 
-label {
-  margin: 0.5rem;
+.submit-btn {
+  width: 300px;
+  background-color: #40434c;
+  color: white;
+  padding: 30px 0;
 }
 
-input {
-  color: black;
-  margin: 0.5rem;
+.login-fail {
+  color: red;
 }
 
-button {
-  margin: 5px;
-}
-
-.login-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-image: url('https://d0.tubitv.com/web-k8s/dist/img/964df397c603.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 67%;
-  padding: 8rem 0;
-}
-
-.form-container {
+.new-account-prompt {
   color: white;
 }
 
-.btn-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem 0;
-}
-
-.btn {
-  width: 100%;
+.register-link {
+  color: #40434c;
+  text-decoration: none;
 }

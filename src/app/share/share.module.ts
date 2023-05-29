@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AboutComponent } from './components/about/about.component';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
@@ -10,11 +11,13 @@ import { AboutComponent } from './components/about/about.component';
     AboutComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MaterialModule
   ],
   exports: [
     NavbarComponent,
     AboutComponent,
+    MaterialModule
   ]
 })
 export class ShareModule { }

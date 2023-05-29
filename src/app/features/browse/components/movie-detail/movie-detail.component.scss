@@ -12,3 +12,37 @@ a {
   width: 100%;
   height: 100vh;
 }
+
+.content-container {
+  position: absolute;
+  bottom: 20%;
+  display: flex;
+  flex-direction: column;
+}
+
+.description-container {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.4;
+  padding: 20px;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  gap: 10px;
+}
+
+.title {
+  font-size: 7rem;
+}
+
+.details {
+  font-size: 2rem;
+}
+
+.summary, .movie-link {
+  font-size: 1.5rem;
+  padding: 10px 0;
+}

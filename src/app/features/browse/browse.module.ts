@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ShareModule } from 'src/app/share/share.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowseRoutingModule } from './browse-routing.module';
 
@@ -22,8 +23,9 @@ import { TrailerComponent } from './components/trailer/trailer.component';
   ],
   imports: [
     CommonModule,
+    ShareModule,
     HttpClientModule,
-    BrowseRoutingModule,
+    BrowseRoutingModule
   ]
 })
 export class BrowseModule { }

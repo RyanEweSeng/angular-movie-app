@@ -1,15 +1,17 @@
 <div class="movie-detail-container" style="background-image: url('https://image.tmdb.org/t/p/original{{ movieDetails.backdrop_path }}');">
-  <div>
-    <h1>{{ movieDetails.title }}</h1>
-    <h4>&#9733; {{ movieDetails.vote_average.toFixed(1) }} &#8226; {{ movieDetails.runtime }} mins &#8226; {{ movieGenres.join(' | ') }} &#8226; {{ movieDetails.release_date.split('-')[0] }}</h4>
-    <p>{{ movieDetails.overview }}</p>
-    <p>Homepage: <a href="{{ movieDetails.homepage }}">{{ movieDetails.homepage }}</a></p>
-  </div>
-
-  <div>
-    <button (click)="goToMovieList()">Back</button>
-    <button (click)="showTrailer()">Trailer</button>
-    <button>Watch Now</button>
+  <div class="content-container">
+    <div class="description-container">
+      <div class="title">{{ movieDetails.title }}</div>
+      <div class="details">&#9733; {{ movieDetails.vote_average.toFixed(1) }} &#8226; {{ movieDetails.runtime }} mins &#8226; {{ movieGenres.join(' | ') }} &#8226; {{ movieDetails.release_date.split('-')[0] }}</div>
+      <div class="summary">{{ movieDetails.overview }}</div>
+      <div class="movie-link">Homepage: <a href="{{ movieDetails.homepage }}">{{ movieDetails.homepage }}</a></div>
+    </div>
+  
+    <div class="btn-container">
+      <button mat-flat-button (click)="goToMovieList()">Back</button>
+      <button mat-flat-button (click)="showTrailer()">Trailer</button>
+      <button mat-flat-button>Watch Now</button>
+    </div>
   </div>
 
   <app-trailer [key]="trailerKey" *ngIf="trailerFlag" (closeTrailerEvent)="closeTrailer()"></app-trailer>

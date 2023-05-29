@@ -1,47 +1,44 @@
-<div class="register-container">
-  <h1>Let's get you set up</h1>
-  <h2>It's free. No subscription required</h2>
-  <div class="form-container">
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Let's get you set up</mat-card-title>
+    <mat-card-title>It's free. No subscription required</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <div *ngIf="currentStep === 0">
-        <div>
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" formControlName="username" required>
-          <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
-            <div *ngIf="registerForm.get('username')?.errors?.['required']">Username is required</div>
-            <div *ngIf="registerForm.get('username')?.errors?.['minLength']">Username must be at least {{ usernameMinLength }} characters</div>
-          </div>
-        </div>
+      <ng-container *ngIf="currentStep === 0">
+        <mat-form-field [floatLabel]="getFloatValue('username')"> 
+          <mat-label>Username</mat-label>
+          <input matInput type="text" placeholder="Username" name="username" formControlName="username" required>
+          <mat-error *ngIf="registerForm.get('username')?.errors?.['required']">Username is required.</mat-error>
+          <mat-error *ngIf="!registerForm.get('username')?.errors?.['required'] && !registerForm.get('username')?.errors?.['minLength']">Username must be at least {{ usernameMinLength }} characters.</mat-error>
+        </mat-form-field>
 
-        <div>
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" formControlName="email" required>
-          <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
-            <div *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</div>
-            <div *ngIf="registerForm.get('email')?.errors?.['email']">Invalid email format</div>
-            <div *ngIf="registerForm.get('email')?.errors?.['emailExists']">Account already created with this email</div>
-          </div>
-        </div>
+        <mat-form-field [floatLabel]="getFloatValue('email')"> 
+          <mat-label>Email</mat-label>
+          <input matInput type="email" placeholder="Email" name="email" formControlName="email" required>
+          <mat-error *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</mat-error>
+          <mat-error *ngIf="!registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.errors?.['email']">Invalid email format.</mat-error>
+          <mat-error *ngIf="!registerForm.get('email')?.errors?.['required'] && !registerForm.get('email')?.errors?.['email'] && registerForm.get('email')?.errors?.['emailExists']">Account already created with this email.</mat-error>
+        </mat-form-field>
 
-        <div>
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" formControlName="password" required>
-          <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-            <div *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</div>
-            <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least {{ passwordMinLength }} characters</div>
-          </div>
-        </div>
+        <mat-form-field [floatLabel]="getFloatValue('password')"> 
+          <mat-label>Password</mat-label>
+          <input matInput type="password" placeholder="Password" name="password" formControlName="password" required>
+          <mat-error *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</mat-error>
+          <mat-error *ngIf="!registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.errors?.['minlength']">Password must be at least {{ passwordMinLength }} characters.</mat-error>
+        </mat-form-field>
 
         <div>
           <button
-            type="button"
+            mat-flat-button
             (click)="nextRegisterStep()"
             [disabled]="!(registerForm.controls['username'].valid && registerForm.controls['email'].valid && registerForm.controls['password'].valid)"
           >
             Next
           </button>
         </div>
-      </div>
+      </ng-container>
 
       <div *ngIf="currentStep === 1">
         <div>
@@ -71,5 +68,5 @@
         </div>
       </div>
     </form>
-  </div>
-</div>
+  </mat-card-content>
+</mat-card>
