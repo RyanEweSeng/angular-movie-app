@@ -6,7 +6,7 @@
   <div class="account-options">
     <div *ngIf="username$ | async; else signInLink">
       <span>Welcome, {{ username$ | async }}!</span>
-      <a routerLink='/change' href="change" class="nav-link">Change Role</a>
+      <a mat-button color="accent" routerLink='/change' href="change" class="nav-link">Change Role</a>
       <button mat-flat-button color="warn" (click)="logout()">Sign Out</button>
     </div>
     <ng-template #signInLink>
