@@ -25,16 +25,12 @@ export class MovieDetailComponent implements OnInit {
   }
 
   getDetails() {
-    this.activatedRoute.data.subscribe(data => {
-      this.movieDetails = data['movieDetails'];
-      this.movieGenres = this.movieDetails.genres.map(genre => genre.name);
-    });
+    this.movieDetails = this.activatedRoute.snapshot.data['movieDetails'];
+    this.movieGenres = this.movieDetails.genres.map(genre => genre.name);
   }
 
   getTrailerKey() {
-    this.activatedRoute.data.subscribe(data => {
-      this.trailerKey = data['trailer'].results.filter((item: { name: string }) => item.name === 'Official Trailer')[0].key;
-    });
+    this.trailerKey = this.activatedRoute.snapshot.data['trailer'].results.filter((item: { name: string }) => item.name === 'Official Trailer')[0].key;
   }
 
   showTrailer() {
