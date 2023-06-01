@@ -12,9 +12,6 @@ import { RegisterModule } from './features/register/register.module';
 import { BrowseModule } from './features/browse/browse.module';
 import { ChangeRoleModule } from './features/change-role/change-role.module';
 
-import { AuthService } from './core/services/auth/auth.service';
-import { UserService } from './core/services/user/user.service';
-
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
@@ -34,8 +31,6 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     ChangeRoleModule,
   ],
   providers: [
-    AuthService,
-    UserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

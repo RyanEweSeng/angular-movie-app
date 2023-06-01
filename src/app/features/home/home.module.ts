@@ -8,6 +8,7 @@ import { DevicesContentComponent } from './components/devices-content/devices-co
 import { BrowseContentComponent } from './components/browse-content/browse-content.component';
 import { FaqContentComponent } from './components/faq-content/faq-content.component';
 import { RegisterContentComponent } from './components/register-content/register-content.component';
+import { ShareModule } from 'src/app/share/share.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { RegisterContentComponent } from './components/register-content/register
   ],
   imports: [
     CommonModule,
+    ShareModule,
     HomeRoutingModule,
   ]
 })

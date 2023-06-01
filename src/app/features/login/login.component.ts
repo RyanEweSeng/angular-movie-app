@@ -27,12 +27,13 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.authService.loginUser(this.loginForm.value).subscribe({
         next: (res: any) => {
-          console.log('login response');
+          console.log('login successful');
           console.log(res);
-          this.authService.updateDetails(res);
           this.router.navigate(['/browse']);
         },
         error: (err) => {
+          console.log('login failed');
+          console.log(err);
           this.loginSuccess = false;
         }
       });

@@ -31,7 +31,7 @@ export class ChangeRoleComponent implements OnInit {
   onSubmit(): void {
     if (this.roleForm.valid) {
       if (localStorage.getItem('token')) {
-        this.authService.updateRole(this.roleForm.value);
+        this.authService.changeRole(this.roleForm.value).subscribe();
         this.router.navigate(['/browse']);
       } else {
         this.router.navigate(['/login']);

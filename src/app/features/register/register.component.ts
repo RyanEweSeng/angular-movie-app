@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     if (this.registerForm.valid) {
-      this.authService.registerUser(this.registerForm.value);
+      this.authService.registerUser(this.registerForm.value).subscribe();
       this.router.navigate(['/']);
     }
   }

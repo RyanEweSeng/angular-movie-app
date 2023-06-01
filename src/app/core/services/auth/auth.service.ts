@@ -1,24 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable } from 'rxjs';
-import { UserService } from '../user/user.service';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  // private apiUrl = 'http://localhost:4231';
-  private apiUrl = 'https://nest-movie-backend.onrender.com';
+  private apiUrl = 'http://localhost:4231';
+  // private apiUrl = 'https://nest-movie-backend.onrender.com';
 
-  constructor(private http: HttpClient, private userService: UserService) { }
+  private usernameSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private roleSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
+  username$: Observable<string> = this.usernameSubject.asObservable();
+  role$: Observable<string> = this.roleSubject.asObservable();
+
+  constructor(private http: HttpClient) { console.log('auth service constructor called', this) }
 
   checkEmailExists(email: string): Observable<boolean> {
     const url = `${this.apiUrl}/auth/check-email`;
     return this.http.post<boolean>(url, { email });
   }
 
-  registerUser(formValue: { username: string, email: string, password: string, role: string, tmdb_key: string }): void { 
+  registerUser(formValue: { username: string, email: string, password: string, role: string, tmdb_key: string }): Observable<any> { 
     const url = `${this.apiUrl}/auth/signup`;
     const payload = {
       username: formValue.username,
@@ -28,11 +33,14 @@ export class AuthService {
       tmdb_key: formValue.tmdb_key
     };
 
-    this.http.post<Object>(url, payload).subscribe((res: any) => {
-      console.log("register response");
-      console.log(res);
-      this.updateDetails(res);
-    });
+    return this.http.post<Object>(url, payload).pipe(
+      tap((res: any) => {
+        console.log("register response");
+        console.log(res);
+        localStorage.setItem('token', res.accessToken);
+        this.updateSubject(res.accessToken, res.role);
+      })
+    );
   }
 
   loginUser(formValue: { email: string, password: string }): Observable<Object> {
@@ -42,39 +50,46 @@ export class AuthService {
       password: formValue.password
     };
     
-    return this.http.post<Object>(url, payload);
+    return this.http.post<Object>(url, payload).pipe(
+      tap((res: any) => {
+        localStorage.setItem('token', res.accessToken);
+        this.updateSubject(res.accessToken, res.role);
+      }),
+    );
   }
 
-  updateRole(formValue: { role: string }): void {
+  changeRole(formValue: { role: string }): Observable<any> {
     const url = `${this.apiUrl}/auth/userupdate`;
     const payload = {
       role: formValue.role,
     }
 
-    this.http.patch<Object>(url, payload).subscribe((res: any) => {
-      console.log('update role response');
-      console.log(res);
-      this.updateDetails(res);
-    })
+    return this.http.patch<Object>(url, payload).pipe(
+      tap((res: any) => {
+        console.log('change role response');
+        console.log(res);
+        this.updateSubject(res.accessToken, res.role);
+      })
+    );
   }
 
   logoutUser(): void {
-    localStorage.removeItem('username');
-    localStorage.removeItem('role');
+    console.log('logout called');
+    this.usernameSubject.next('');
+    this.roleSubject.next('');
     localStorage.removeItem('token');
-    this.userService.username = '';
-    this.userService.role = '';
   }
 
-  updateDetails(response: any): void {
+  private updateSubject(token: string, role: string): void {
     const jwtHelper = new JwtHelperService();
-    const decodedAccessToken = jwtHelper.decodeToken(response.accessToken);
+    const decodedAccessToken = jwtHelper.decodeToken(token);
 
-    localStorage.setItem('username', decodedAccessToken.username);
-    localStorage.setItem('role', response.role);
-    localStorage.setItem('token', response.accessToken);
-
-    this.userService.username = decodedAccessToken.username;
-    this.userService.role = response.role;
+    console.log('prev username:' + this.usernameSubject.value);
+    console.log('prev role:' + this.roleSubject.value);
+    console.log('emitting next value...');
+    this.usernameSubject.next(decodedAccessToken.username);
+    this.roleSubject.next(role);
+    console.log('next username:' + this.usernameSubject.value);
+    console.log('next role:' + this.roleSubject.value);
   }
 }
