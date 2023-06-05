@@ -84,12 +84,7 @@ export class AuthService {
     const jwtHelper = new JwtHelperService();
     const decodedAccessToken = jwtHelper.decodeToken(token);
 
-    console.log('prev username:' + this.usernameSubject.value);
-    console.log('prev role:' + this.roleSubject.value);
-    console.log('emitting next value...');
     this.usernameSubject.next(decodedAccessToken.username);
     this.roleSubject.next(role);
-    console.log('next username:' + this.usernameSubject.value);
-    console.log('next role:' + this.roleSubject.value);
   }
 }

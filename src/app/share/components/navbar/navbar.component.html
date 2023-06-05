@@ -4,14 +4,14 @@
     <a mat-button color="primary" routerLink="/browse" routerLinkActive="active" class="nav-link">Browse</a>
   </div>
   <div class="account-options">
-    <div *ngIf="username$ | async as username">
-      <span>Welcome, {{ username }}!</span>
+    <div *ngIf="username$ | async; else signInLink">
+      <span>Welcome, {{ username$ | async }}!</span>
       <a mat-button color="accent" routerLink="/change" routerLinkActive="active" class="nav-link">Change Role</a>
       <button mat-flat-button color="warn" (click)="logout()">Sign Out</button>
     </div>
-    <div>
+    <ng-template #signInLink>
       <a mat-button color="primary" routerLink="/login" routerLinkActive="active" class="nav-link">Sign In</a>
       <a mat-button color="primary" routerLink="/register" routerLinkActive="active" class="nav-link">Register</a>
-    </div>
+    </ng-template>
   </div>
 </div>

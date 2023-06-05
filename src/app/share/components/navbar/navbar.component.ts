@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit {
   
   constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.username$ = this.authService.username$;
   }
 
